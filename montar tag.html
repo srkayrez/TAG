@@ -112,6 +112,7 @@
         type="text" 
         id="campanha" 
         placeholder="Campaign/Date"
+        maxlength="18"
       />
     </div>
 
@@ -121,6 +122,7 @@
         type="text" 
         id="marca" 
         placeholder="Main brand"
+        maxlength="18"
       />
     </div>
 
@@ -131,6 +133,7 @@
         id="family"
         placeholder="000"
         value="000"
+        maxlength="3"
       />
     </div>
   </div>
@@ -178,6 +181,8 @@
         alert("A TAG está vazia. Preencha todos os campos antes de copiar.");
         return;
       }
+
+      
 
       lastTag.value = tag.value;
 
