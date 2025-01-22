@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montar Tag</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 200px;
+    }
+
+    .field h1 {
+      font-size: 16px;
+      margin: 0 0 8px;
+      color: #333;
+    }
+
+    .field select,
+    .field input {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .field select {
+      height: 36px;
+    }
+
+    .tag-field {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tag-field input {
+      font-weight: bold;
+      color: #555;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      flex-grow: 1;
+      text-transform: uppercase;
+    }
+
+    .tag-field button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .tag-field button:hover {
+      background-color: #0056b3;
+    }
+
+    .last-tag-field {
+      margin-top: 20px;
+    }
+
+    .last-tag-field input {
+      width: 100%;
+      font-weight: bold;
+      color: #333;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="field">
+      <h1>Tipo</h1>
+      <select id="tipo">
+        <option value="">Selecione...</option>
+        <option value="PO">PO - Poster</option>
+        <option value="ST">ST - Sticker</option>
+        <option value="CS">CS - Cooler Sticker</option>
+        <option value="TC">TC - Tent Card</option>
+        <option value="VB">VB - Vertical Banner</option>
+        <option value="HB">HB - Horizontal Banner</option>
+        <option value="TA">TA - Tacker</option>
+      </select>
+    </div>
+    
+    <div class="field">
+      <h1>Campaign/Date</h1>
+      <input 
+        type="text" 
+        id="campanha" 
+        placeholder="Campaign/Date"
+      />
+    </div>
+
+    <div class="field">
+      <h1>Main brand</h1>
+      <input 
+        type="text" 
+        id="marca" 
+        placeholder="Main brand"
+      />
+    </div>
+
+    <div class="field">
+      <h1>Family</h1>
+      <input
+        type="number"
+        id="family"
+        placeholder="000"
+        value="000"
+      />
+    </div>
+  </div>
+
+  <div class="tag-field">
+    <input 
+      type="text" 
+      id="tag" 
+      readonly 
+      placeholder="A TAG será gerada automaticamente"
+    />
+    <button id="copyTag">Copiar TAG</button>
+  </div>
+
+  <div class="last-tag-field">
+    <h1>Última TAG</h1>
+    <input 
+      type="text" 
+      id="lastTag" 
+      readonly 
+      placeholder="Nenhuma TAG copiada ainda"
+    />
+  </div>
+
+  <script>
+    const tipo = document.getElementById("tipo");
+    const campanha = document.getElementById("campanha");
+    const marca = document.getElementById("marca");
+    const family = document.getElementById("family");
+    const tag = document.getElementById("tag");
+    const copyTagButton = document.getElementById("copyTag");
+    const lastTag = document.getElementById("lastTag");
+
+    function updateTag() {
+      const tipoValue = tipo.value.toUpperCase();
+      const campanhaValue = campanha.value.trim().toUpperCase();
+      const marcaValue = marca.value.trim().toUpperCase();
+      const familyValue = family.value.trim().toUpperCase();
+
+      tag.value = `${tipoValue}_${campanhaValue}_${marcaValue}_${familyValue}`;
+    }
+
+    function copyTag() {
+      if (tag.value.trim() === "") {
+        alert("A TAG está vazia. Preencha todos os campos antes de copiar.");
+        return;
+      }
+
+      lastTag.value = tag.value;
+
+      tipo.value = "";
+      campanha.value = "";
+      marca.value = "";
+      family.value = "000";
+      tag.value = "";
+    }
+
+    tipo.addEventListener("change", updateTag);
+    campanha.addEventListener("input", updateTag);
+    marca.addEventListener("input", updateTag);
+    family.addEventListener("input", updateTag);
+
+    copyTagButton.addEventListener("click", copyTag);
+  </script>
+</body>
+</html>
