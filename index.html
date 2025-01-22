@@ -182,15 +182,17 @@
         return;
       }
 
-      
+      navigator.clipboard.writeText(tag.value).then(() => {
+        lastTag.value = tag.value;
 
-      lastTag.value = tag.value;
-
-      tipo.value = "";
-      campanha.value = "";
-      marca.value = "";
-      family.value = "000";
-      tag.value = "";
+        tipo.value = "";
+        campanha.value = "";
+        marca.value = "";
+        family.value = "000";
+        tag.value = "";
+      }).catch(err => {
+        alert("Falha ao copiar a TAG: " + err);
+      });
     }
 
     tipo.addEventListener("change", updateTag);
@@ -202,3 +204,4 @@
   </script>
 </body>
 </html>
+
